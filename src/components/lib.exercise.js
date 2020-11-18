@@ -1,46 +1,49 @@
-import styled from '@emotion/styled'
+import styled from '@emotion/styled/macro'
 import {Dialog as ReachDialog} from '@reach/dialog'
 
-// 🐨 create a button styled component here called "Button"
-// make it look nice and allow it to support a "variant" prop which can be
-// either "primary" or "secondary".
-// 💰 don't forget to export it at the bottom!
-// 💰 In my final version, I style padding, border, lineHeight, and borderRadius
-//    the same for both types, and then change the background and color based
-//    on the given variant.
-// 🦉 remember, you don't have to make things look perfect or just like they
-// do in the final example. Just make sure you understand how to create the
-// styled component and accept a prop to change which styles apply.
+const Button = styled.button(props => {
+  return {
+    color: props.variant === 'light' ? '#0ec2ec' : '#c0f5ff',
+    backgroundColor: props.variant === 'light' ? '#efefef' : '#464d4e',
+    padding: '0.75rem',
+    margin: '25px 0 15px',
+    minWidth: '135px',
+    borderRadius: '6px',
+    border: 'unset',
+    boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.22)',
+  }
+})
 
-// 🐨 Feel free to create as many reusable styled components here as you'd like
-// 💰 in my finished version I have: Button, Input, CircleButton, Dialog, FormGroup
+const Input = styled.input(props => {
+  const boxShadow = '0px 4px 15px rgba(0,0,0,0.22)'
+  return {
+    overflow: 'visible',
+    border: '0',
+    background: '#f2f5f4',
+    borderRadius: '5px',
+    minHeight: '2.5rem',
+    margin: '.5rem 0',
+    '&:hover': {
+      boxShadow: boxShadow,
+    },
+    '&:active': {
+      boxShadow: boxShadow,
+      border: '2px solid #cfd5f1',
+    },
+    '&:focus': {
+      boxShadow: boxShadow,
+      border: '2px solid #cfd5f1',
+    },
+  }
+})
 
-// 🎨 here are a bunch of styles you can copy/paste if you want
-// Button:
-//   padding: '10px 15px',
-//   border: '0',
-//   lineHeight: '1',
-//   borderRadius: '3px',
+const FormGroup = styled.div(props => {
+  return {
+    display: 'flex',
+    flexDirection: 'column',
+  }
+})
 
-// Button variant="primary" (in addition to the above styles)
-//   background: '#3f51b5',
-//   color: 'white',
-
-// Button variant="secondary" (in addition to the above styles)
-//   background: '#f1f2f7',
-//   color: '#434449',
-
-// Input
-//   borderRadius: '3px',
-//   border: '1px solid #f1f1f4',
-//   background: '#f1f2f7',
-//   padding: '8px 12px',
-
-// FormGroup
-//   display: 'flex',
-//   flexDirection: 'column',
-
-// 💰 I'm giving a few of these to you:
 const CircleButton = styled.button({
   borderRadius: '30px',
   padding: '0',
@@ -68,4 +71,4 @@ const Dialog = styled(ReachDialog)({
   },
 })
 
-export {CircleButton, Dialog}
+export {CircleButton, Dialog, Button, Input, FormGroup}
