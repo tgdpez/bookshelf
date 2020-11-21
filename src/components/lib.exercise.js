@@ -1,25 +1,54 @@
 import styled from '@emotion/styled/macro'
+import {keyframes} from '@emotion/core'
+import {FaSpinner} from 'react-icons/fa'
 import {Dialog as ReachDialog} from '@reach/dialog'
+import * as mq from 'styles/media-queries'
+import * as colors from 'styles/colors'
 
-const Button = styled.button(props => {
-  return {
-    color: props.variant === 'light' ? '#0ec2ec' : '#c0f5ff',
-    backgroundColor: props.variant === 'light' ? '#efefef' : '#464d4e',
+const spin = keyframes({
+  '0%': {transform: 'rotate(0deg)'},
+  '100%': {transform: 'rotate(360deg)'},
+})
+
+const Spinner = styled(FaSpinner)({
+  animation: `${spin} 1s linear infinite`,
+})
+Spinner.defaultProps = {
+  'aria-label': 'loading',
+}
+
+const buttonVariants = {
+  primary: {
+    color: colors.skyBlue,
+    backgroundColor: colors.gray10,
+  },
+  secondary: {
+    color: colors.skyBlue,
+    backgroundColor: colors.coolGray,
+  },
+}
+
+const Button = styled.button(
+  {
     padding: '0.75rem',
     margin: '25px 0 15px',
     minWidth: '135px',
     borderRadius: '6px',
     border: 'unset',
-    boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.22)',
-  }
-})
+    boxShadow: colors.boxShadowLow,
+    '&:hover': {
+      boxShadow: colors.boxShadowRaised,
+    },
+  },
+  ({variant = 'primary'}) => buttonVariants[variant],
+)
 
 const Input = styled.input(props => {
-  const boxShadow = '0px 4px 15px rgba(0,0,0,0.22)'
+  const boxShadow = colors.boxShadowRaised
   return {
     overflow: 'visible',
     border: '0',
-    background: '#f2f5f4',
+    background: colors.lightGray,
     borderRadius: '5px',
     minHeight: '2.5rem',
     margin: '.5rem 0',
@@ -65,10 +94,10 @@ const Dialog = styled(ReachDialog)({
   paddingBottom: '3.5em',
   boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.2)',
   margin: '20vh auto',
-  '@media (max-width: 991px)': {
+  [mq.small]: {
     width: '100%',
     margin: '10vh auto',
   },
 })
 
-export {CircleButton, Dialog, Button, Input, FormGroup}
+export {CircleButton, Dialog, Button, Input, FormGroup, Spinner}
