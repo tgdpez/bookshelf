@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import {jsx, keyframes} from '@emotion/core'
+import {jsx} from '@emotion/core'
 import 'bootstrap/dist/css/bootstrap-reboot.css'
 import '@reach/dialog/styles.css'
 import * as React from 'react'
