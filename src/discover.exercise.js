@@ -8,33 +8,19 @@ import {Input, BookListUL, Spinner} from './components/lib'
 import {BookRow} from './components/book-row'
 import {client} from './utils/api-client'
 import * as colors from './styles/colors'
+import {useAsync} from 'utils/hooks'
 
 function DiscoverBooksScreen() {
-  const [status, setStatus] = React.useState('') //state for status ('idle', 'loading', or 'success')
+  const {data, error, run, isLoading, isError, isSuccess} = useAsync()
   const [query, setQuery] = React.useState('')
-  const [queried, setQueried] = React.useState(false) //We don't want to run the form until the user has submitted the form
-  const [data, setData] = React.useState(null)
-  const [error, setError] = React.useState(null)
-
-  const isLoading = status === 'loading'
-  const isError = status === 'error'
-  const isSuccess = status === 'success'
+  const [queried, setQueried] = React.useState(false)
 
   React.useEffect(() => {
     if (!queried) {
       return
     }
-    setStatus('loading')
-    client(`books?query=${encodeURIComponent(query)}`)
-      .then(responseData => {
-        setData(responseData)
-        setStatus('success')
-      })
-      .catch(error => {
-        setError(error)
-        setStatus('error')
-      })
-  }, [query, queried])
+    run(client(`books?query=${encodeURIComponent(query)}`))
+  }, [query, queried, run])
 
   function handleSearchSubmit(event) {
     event.preventDefault()
